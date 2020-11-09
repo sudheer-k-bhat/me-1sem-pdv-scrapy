@@ -10,9 +10,10 @@ class QuoteSpider(scrapy.Spider):
 		#items = QuotetutorialItem()
 
 		all_div_quotes = response.css('div.quote')
-		title = all_div_quotes.css('span.text::text')
-		author = all_div_quotes.css('.author::text')
-		tags = all_div_quotes.css('.tag::text')
+		for quote in all_div_quotes:
+			title = quote.css('span.text::text').extract()
+			author = quote.css('.author::text').extract()
+			tags = quote.css('.tag::text').extract()
 		#items['title'] = title
 		#items['author'] = author
 		#items['tag'] = tags
