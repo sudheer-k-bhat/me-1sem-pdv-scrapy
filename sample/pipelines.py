@@ -23,7 +23,7 @@ class SamplePipeline:
 		self.curr.execute("""CREATE TABLE quotes_tb(title text, author text, tag text)""")
 
 	def process_item(self, item, spider):
-		self.store_db(item);
+		self.store_db(item)
 		return item
 
 	def store_db(self, item):
