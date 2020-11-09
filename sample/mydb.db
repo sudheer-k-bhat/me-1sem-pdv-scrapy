@@ -1,0 +1,10 @@
+import sqlite3
+
+conn = sqlite3.connect('myquotes.db')
+cursor = conn.cursor()
+cursor.execute(""" create table quotes_tb(title text, author text, tag text)""")
+cursor.execute(""" insert into quotes_tb values('to each their own', 'sudheer', 'chumma') """)
+conn.commit()
+conn.close()
+
+
