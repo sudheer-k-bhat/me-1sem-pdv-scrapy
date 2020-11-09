@@ -4,8 +4,8 @@ from ..items import SampleItem
 
 class QuoteSpider(scrapy.Spider):
 	name = 'quotes'
-	page_number = 2
 	start_urls = ['http://quotes.toscrape.com']
+	page_number = 2
 
 	def parse(self, response):
 		items = SampleItem()
@@ -19,10 +19,9 @@ class QuoteSpider(scrapy.Spider):
 			items['author'] = author
 			items['tag'] = tags
 			yield items
-		
-		next_page = response.css('list.next a::attr(href)').get()
-		next_page = 'http://quotes.toscrape.com/page/' + str(next_page)
-		if next_page is not None:
+
+		if self.page_number < 11:
+			next_page = self.start_urls[0] + '/page/'+ str(self.page_number)
 			yield response.follow(next_page, callback = self.parse)
-			next_page += 1
+			self.page_number += 1
 
